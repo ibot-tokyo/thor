@@ -6,13 +6,64 @@
     android:layout_height="match_parent"
     tools:context="tokyo.ibot.thor.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
+        <TextView
+            android:id="@+id/modeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="loading..."
+            android:textSize="24dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="go"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"/>
+
+        <Button
+            android:id="@+id/turnRightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="turnRight"/>
+
+        <Button
+            android:id="@+id/turnLeftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="turnLeft"/>
+
+        <Button
+            android:id="@+id/slideRightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="slideRight"/>
+
+        <Button
+            android:id="@+id/slideLeftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="slideLeft"/>
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stop"/>
+    </LinearLayout>
+    
 </android.support.constraint.ConstraintLayout>
