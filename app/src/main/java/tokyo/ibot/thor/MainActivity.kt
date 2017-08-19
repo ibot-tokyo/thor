@@ -3,6 +3,8 @@ package tokyo.ibot.thor
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,46 +21,74 @@ class MainActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance()
         val ref = database.getReference(key)
 
-        goButton.setOnClickListener {
-            val mode = "go"
+        fun sendMode(mode: String) {
             Log.d("push", mode)
             ref.setValue(mode)
         }
 
-        backButton.setOnClickListener {
-            val mode = "back"
-            Log.d("push", mode)
-            ref.setValue(mode)
+        goButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("go")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
         }
 
-        turnRightButton.setOnClickListener {
-            val mode = "turnRight"
-            Log.d("push", mode)
-            ref.setValue(mode)
+        backButton.setOnTouchListener { _: View, event: MotionEvent ->
+            Log.d("on", event.action.toString())
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("back")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
         }
 
-        turnLeftButton.setOnClickListener {
-            val mode = "turnLeft"
-            Log.d("push", mode)
-            ref.setValue(mode)
+        turnRightButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("turnRight")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
         }
 
-        slideRightButton.setOnClickListener {
-            val mode = "slideRight"
-            Log.d("push", mode)
-            ref.setValue(mode)
+        turnLeftButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("turnLeft")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
         }
 
-        slideLeftButton.setOnClickListener {
-            val mode = "slideLeft"
-            Log.d("push", mode)
-            ref.setValue(mode)
+        slideRightButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("slideRight")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
+        }
+
+        slideLeftButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendMode("slideLeft")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendMode("stop")
+            }
+
+            false
         }
 
         stopButton.setOnClickListener {
-            val mode = "stop"
-            Log.d("push", mode)
-            ref.setValue(mode)
+            sendMode("stop")
         }
 
 
