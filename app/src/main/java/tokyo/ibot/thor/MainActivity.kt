@@ -18,12 +18,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val key = "mode"
+        val liftKey = "lift"
         val database = FirebaseDatabase.getInstance()
         val ref = database.getReference(key)
+        val liftRef = database.getReference(liftKey)
 
         fun sendMode(mode: String) {
             Log.d("push", mode)
             ref.setValue(mode)
+        }
+
+        fun sendLift(mode: String) {
+            Log.d("lift", mode)
+            liftRef.setValue(mode)
         }
 
         goButton.setOnTouchListener { _: View, event: MotionEvent ->
@@ -37,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         backButton.setOnTouchListener { _: View, event: MotionEvent ->
-            Log.d("on", event.action.toString())
             if (event.action == MotionEvent.ACTION_DOWN) {
                 sendMode("back")
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -89,10 +95,42 @@ class MainActivity : AppCompatActivity() {
 
         stopButton.setOnClickListener {
             sendMode("stop")
+            sendLift("stop")
         }
 
+        upButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendLift("up")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendLift("stop")
+            }
+
+            false
+        }
+
+        downButton.setOnTouchListener { _: View, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                sendLift("down")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                sendLift("stop")
+            }
+
+            false
+        }
 
         ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val value = dataSnapshot.value
+                Log.d("onDataChange", value.toString())
+                modeText.text = value.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("onCancelled", "Failed to read value.", error.toException())
+            }
+        })
+
+        liftRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val value = dataSnapshot.value
                 Log.d("onDataChange", value.toString())
